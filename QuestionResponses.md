@@ -29,31 +29,31 @@
     
 >\* There are actually ony 144 employee names.  The other two are 'TOTAL' and 'THE TRAVEL AGENCY IN THE PARK' which were treated as outliers out of hand and removed.  Using the <a href = "http://www.mathwords.com/o/outlier.htm">IQR definition</a> of an outlier, I built on the number of NaNs, and found the number of high and low outliers for each feature: 
 
->                           High_outliers  Low_outliers  NaNs  Non_outliers
->bonus                                 10             0    63            71
->deferral_payments                      6             0   106            32
->deferred_income                        0             5    96            43
->director_fees                          0             4   128            12
->exercised_stock_options               11             0    43            90
->expenses                               3             0    50            91
->from_messages                         17             0    58            69
->from_poi_to_this_person               11             0    58            75
->from_this_person_to_poi               13             0    58            73
->loan_advances                          0             0   141             3
->long_term_incentive                    7             0    79            58
->other                                 11             0    53            80
->poi                                   18             0     0           126
->restricted_stock                      13             1    35            95
->restricted_stock_deferred              1             1   127            15
->salary                                 6             3    50            85
->shared_receipt_with_poi                2             0    58            84
->to_messages                            7             0    58            79
->total_payments                        10             0    21           113
->total_stock_value                     21             0    19           104
+>`                           High_outliers  Low_outliers  NaNs  Non_outliers
+> bonus                                 10             0    63            71
+> deferral_payments                      6             0   106            32
+> deferred_income                        0             5    96            43
+> director_fees                          0             4   128            12
+> exercised_stock_options               11             0    43            90
+> expenses                               3             0    50            91
+> from_messages                         17             0    58            69
+> from_poi_to_this_person               11             0    58            75
+> from_this_person_to_poi               13             0    58            73
+> loan_advances                          0             0   141             3
+> long_term_incentive                    7             0    79            58
+> other                                 11             0    53            80
+> poi                                   18             0     0           126
+> restricted_stock                      13             1    35            95
+> restricted_stock_deferred              1             1   127            15
+> salary                                 6             3    50            85
+> shared_receipt_with_poi                2             0    58            84
+> to_messages                            7             0    58            79
+> total_payments                        10             0    21           113
+> total_stock_value                     21             0    19           104`  
 
 >However, the presence of outliers does not indicate that any given feature should be removed. In fact, many of POIs had outlier quantities for certain fields, and this would help our classifier distinguish POIs from non-POIs.  Likewise, a high number of NaNs is not necessarily a reason to remove a feature -- 'director_fees' has the second highest percentage of NaNs -- yet none of the POIs had NaNs, so this feature too may help to identify them. 
 
-2. What features did you end up using in your POI identifier, and what selection process did you use to pick them? Did you have to do any scaling? Why or why not? As part of the assignment, you should attempt to engineer your own feature that does not come ready-made in the dataset -- explain what feature you tried to make, and the rationale behind it. (You do not necessarily have to use it in the final analysis, only engineer and test it.) In your feature selection step, if you used an algorithm like a decision tree, please also give the feature importances of the features that you use, and if you used an automated feature selection function like SelectKBest, please report the feature scores and reasons for your choice of parameter values.  [relevant rubric items: “create new features”, “properly scale features”, “intelligently select feature”]
+﻿2. What features did you end up using in your POI identifier, and what selection process did you use to pick them? Did you have to do any scaling? Why or why not? As part of the assignment, you should attempt to engineer your own feature that does not come ready-made in the dataset -- explain what feature you tried to make, and the rationale behind it. (You do not necessarily have to use it in the final analysis, only engineer and test it.) In your feature selection step, if you used an algorithm like a decision tree, please also give the feature importances of the features that you use, and if you used an automated feature selection function like SelectKBest, please report the feature scores and reasons for your choice of parameter values.  [relevant rubric items: “create new features”, “properly scale features”, “intelligently select feature”]
 
 >I added the following features based on a human understanding of the terms:
 >- Percent salary/total payments
@@ -66,7 +66,7 @@
 >My first attempt at feature selection was the first type listed on the <a href = "http://scikit-learn.org/stable/modules/feature_selection.html">Feature Selection documentation </a>.  This type of selection removes features with particularly low variance.  At first pass, threshold = .8 * (1 - .8), only poi was removed, indicated that all instances of this feature are either one or zero (on or off) in more than 80% of the samples.  This was no new information since we know that only 12.5% (18/144) of the dataset are POIs.  Upping the variance to a higher threshold output `['from_messages', 'from_poi_to_this_person', 'from_this_person_to_poi', 'poi', 'shared_receipt_with_poi', 'to_messages']`.  This makes sense since all of these are e-mail datapoints and have lower numbers than the financial datapoints, thus the variance will also be smaller.  In order to use this low variance selecter, I decided it was necessary to scale the features using the min_max_scaler.  After this, the VarianceThreshold selector removed `['loan_advances', 'restricted_stock_deferred', 'total_payments']`.  I decided to keep this in mind, but turn my attention to other feature selectors.
 
 >I used tree-based feature selection and found these feature importances:
->[('deferred_income', 0.09355854423354773),
+>`[('deferred_income', 0.09355854423354773),
 > ('bonus', 0.083194102634256487),
 > ('salary', 0.05939896193731934),
 > ('total_stock_value', 0.056481630853753295),
@@ -89,10 +89,10 @@
 > ('deferral_payments', 0.019912228458090802),
 > ('restricted_stock_deferred', 0.0050050066514957629),
 > ('loan_advances', 0.0035303006608425349),
-> ('director_fees', 0.00057566797788414137)]
+> ('director_fees', 0.00057566797788414137)]`
 
 >I used K-best and found these feature scores:
->[('loan_advances', 549702499.04251242),
+>`[('loan_advances', 549702499.04251242),
 > ('total_payments', 291743055.52305174),
 > ('total_stock_value', 276569697.03888297),
 > ('exercised_stock_options', 237947643.76971057),
@@ -115,11 +115,9 @@
 > ('bon_total', 18.308612008608346),
 > ('sal_total', 0.74596712680387356),
 > ('excer_stock', 0.0098678733905965335),
-> ('sal_bon', 1.3332479328604013e-06)]
+> ('sal_bon', 1.3332479328604013e-06)]`
 
 >It is interesting to note that my composite features are at the top of neither ranking and are completely at the bottom for in the KBest.  'loan_advances' which was removed because of low standardized variance is near the bottom of the the tree ranking, but at the very top of KBest.  'Loan_advances' is extremely sparse -- there are only 3 employees who received them, one of which is a POI. (What did Ken Lay need 81,525,000 loan for in addition to his outrageous salary, bonus, etc. ??) Because of this, I am electing not to keep it. Another low standardized variance feature 'total_payments' appears at the top of the KBest ranking and near the middle of the decision tree ranking.  The third low variance item 'restricted_stock_deferred' does not rank highly on either list.
-
->In the end, I decided, rather crudely, to multiply the feature importance and scores and use this to determine my final ranking. I still need to parametrize how many features to use however. I also wonder if these feature selection methods are intended to be used with their corresponding classifier.  I.e. if you use a decision tree feature selection, should you then use a decision tree classifier? 
 
 3. What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?  [relevant rubric item: “pick an algorithm”]
 
