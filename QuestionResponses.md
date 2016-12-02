@@ -1,9 +1,10 @@
 ﻿1. Summarize for us the goal of this project and how machine learning is useful in trying to accomplish it. As part of your answer, give some background on the dataset and how it can be used to answer the project question. Were there any outliers in the data when you got it, and how did you handle those?  [relevant rubric items: “data exploration”, “outlier investigation”]
 
->The goal of this project is to create a supervised classifier that takes in financial and e-mail data about Enron employees and classifies them as a person of interest ("POI") or not.  In order to accomplish this, we are supplied with two files: a pickled dataset "final_project_dataset.pkl" which includes 21 features on 146 Enron employees\*, and a hand-written list "poi_names.txt" of POI as researched by one of the instructors of this course, Katie Malone.  There are 35 people on this list, but only 18 of them appear in the dataset.  Effectively this list has been used to create one of the 21 features, "poi" which indicates whether the person is a POI or not.  Thus, the dataset can be used for *supervised* learning since labels (POI or not?) are available to help us train a classifier.  In addition to these two files we have a directory of files, each correspondinig to an e-mail written by an Enron employee.  There are approximately 500,000 emails, which were obtained by the Federal Energy Regulatory Commission during its investigation of Enron's collapse.  This dataset is available to the public at https://www.cs.cmu.edu/~./enron/. In regards to the pickled dataset, some issues arise:
+>The goal of this project is to create a supervised classifier that takes in financial and e-mail data about Enron employees and classifies them as a person of interest ("POI") or not.  In order to accomplish this, we are supplied with two files: a pickled dataset "final_project_dataset.pkl" which includes 21 features on 146 Enron employees\*, and a hand-written list "poi_names.txt" of POI as researched by one of the instructors of this course, Katie Malone.  There are 35 people on this list, but only 18 of them appear in the dataset.  Effectively this list has been used to create one of the 21 features, `poi` which indicates whether the person is a POI or not.  Thus, the dataset can be used for *supervised* learning since labels (POI or not?) are available to help us train a classifier.  In addition to these two files we have a directory of files, each correspondinig to an e-mail written by an Enron employee.  There are approximately 500,000 emails, which were obtained by the Federal Energy Regulatory Commission during its investigation of Enron's collapse.  This dataset is available to the public at https://www.cs.cmu.edu/~./enron/. In regards to the pickled dataset, some issues arise:
 
 >- 18 is a relatively small number of positives to train on, especially considering there are 35 of them and only approximately half are found in the dataset
->- All of the features except for poi include NaN values. While some of these NaNs surely indicate 0 (e.g. 129 people have NaNs as director fees, since presumably most employees are not directors and therefore did not collect director fees) some of them indicate missing information, (e.g. 51 observations, over 1/3, have NaN as salary, and surely no people at Enron were paid 0$.) This ambiguity advises caution when deciding whether to fill in 0s for NaNs and in feature selection. The number of NaNs in each feature is displayed below.
+>- The dataset is relatively small in general.
+>- The dataset is sparse.  All of the features except for `poi` include NaN values. While some of these NaNs surely indicate 0 (e.g. 129 people have NaNs as director fees, since presumably most employees are not directors and therefore did not collect director fees) some of them indicate missing information, (e.g. 51 observations, over 1/3, have NaN as salary, and surely no people at Enron were paid $0.) This ambiguity advises caution when deciding whether to fill in 0s for NaNs and in feature selection. The number of NaNs in each feature is displayed below.
 
 >`{   'bonus': 64,
     'deferral_payments': 107,
@@ -29,29 +30,30 @@
     
 >\* There are actually ony 144 employee names.  The other two are 'TOTAL' and 'THE TRAVEL AGENCY IN THE PARK' which were treated as outliers out of hand and removed.  Using the <a href = "http://www.mathwords.com/o/outlier.htm">IQR definition</a> of an outlier, I built on the number of NaNs, and found the number of high and low outliers for each feature: 
 
->`                           High_outliers  Low_outliers  NaNs  Non_outliers
-> bonus                                 10             0    63            71
-> deferral_payments                      6             0   106            32
-> deferred_income                        0             5    96            43
-> director_fees                          0             4   128            12
-> exercised_stock_options               11             0    43            90
-> expenses                               3             0    50            91
-> from_messages                         17             0    58            69
-> from_poi_to_this_person               11             0    58            75
-> from_this_person_to_poi               13             0    58            73
-> loan_advances                          0             0   141             3
-> long_term_incentive                    7             0    79            58
-> other                                 11             0    53            80
-> poi                                   18             0     0           126
-> restricted_stock                      13             1    35            95
-> restricted_stock_deferred              1             1   127            15
-> salary                                 6             3    50            85
-> shared_receipt_with_poi                2             0    58            84
-> to_messages                            7             0    58            79
-> total_payments                        10             0    21           113
-> total_stock_value                     21             0    19           104`  
+|                        |  High_outliers |  Low_outliers  |  NaNs |  Non_outliers  |
+|:-----------------------|:--------------:|:--------------:|:-----:|:--------------:|
+| bonus                  |               10|             0|    63|            71|
+| deferral_payments      |                6|             0|   106|            32|
+| deferred_income        |                0|             5|    96|            43|
+| director_fees          |                0|             4|   128|            12|
+| exercised_stock_options|               11|             0|    43|            90|
+| expenses               |                3|             0|    50|            91|
+| from_messages          |               17|             0|    58|            69|
+| from_poi_to_this_person|               11|             0|    58|            75|
+| from_this_person_to_poi|               13|             0|    58|            73|
+| loan_advances          |                0|             0|   141|             3|
+| long_term_incentive    |                7|             0|    79|            58|
+| other                  |               11|             0|    53|            80|
+| poi                    |               18|             0|     0|           126|
+| restricted_stock       |               13|             1|    35|            95|
+| restricted_stock_deferred|              1|             1|   127|            15|
+| salary                   |              6|             3|    50|            85|
+| shared_receipt_with_poi  |              2|            0|    58|            84|
+| to_messages              |              7|             0|    58|            79|
+| total_payments           |             10|             0|    21|           113|
+| total_stock_value        |             21|             0|    19|           104|  
 
->However, the presence of outliers does not indicate that any given feature should be removed. In fact, many of POIs had outlier quantities for certain fields, and this would help our classifier distinguish POIs from non-POIs.  Likewise, a high number of NaNs is not necessarily a reason to remove a feature -- 'director_fees' has the second highest percentage of NaNs -- yet none of the POIs had NaNs, so this feature too may help to identify them. 
+>However, the presence of outliers does not indicate that any given feature should be removed. In fact, many of POIs had outlier quantities for certain fields, and this would help our classifier distinguish POIs from non-POIs.  Likewise, a high number of NaNs is not necessarily a reason to remove a feature -- 'director_fees' has the second highest percentage of NaNs -- yet none of the POIs had NaNs, so this feature may help to identify them. 
 
 ﻿2. What features did you end up using in your POI identifier, and what selection process did you use to pick them? Did you have to do any scaling? Why or why not? As part of the assignment, you should attempt to engineer your own feature that does not come ready-made in the dataset -- explain what feature you tried to make, and the rationale behind it. (You do not necessarily have to use it in the final analysis, only engineer and test it.) In your feature selection step, if you used an algorithm like a decision tree, please also give the feature importances of the features that you use, and if you used an automated feature selection function like SelectKBest, please report the feature scores and reasons for your choice of parameter values.  [relevant rubric items: “create new features”, “properly scale features”, “intelligently select feature”]
 
@@ -65,7 +67,7 @@
 
 >My first attempt at feature selection was the first type listed on the <a href = "http://scikit-learn.org/stable/modules/feature_selection.html">Feature Selection documentation </a>.  This type of selection removes features with particularly low variance.  At first pass, threshold = .8 * (1 - .8), only poi was removed, indicated that all instances of this feature are either one or zero (on or off) in more than 80% of the samples.  This was no new information since we know that only 12.5% (18/144) of the dataset are POIs.  Upping the variance to a higher threshold output `['from_messages', 'from_poi_to_this_person', 'from_this_person_to_poi', 'poi', 'shared_receipt_with_poi', 'to_messages']`.  This makes sense since all of these are e-mail datapoints and have lower numbers than the financial datapoints, thus the variance will also be smaller.  In order to use this low variance selecter, I decided it was necessary to scale the features using the min_max_scaler.  After this, the VarianceThreshold selector removed `['loan_advances', 'restricted_stock_deferred', 'total_payments']`.  I decided to keep this in mind, but turn my attention to other feature selectors.
 
->I used tree-based feature selection and found these feature importances:
+>I used tree-based feature selection and found these feature importances, sorted from greatest to least:
 >`[('deferred_income', 0.09355854423354773),
 > ('bonus', 0.083194102634256487),
 > ('salary', 0.05939896193731934),
@@ -91,7 +93,7 @@
 > ('loan_advances', 0.0035303006608425349),
 > ('director_fees', 0.00057566797788414137)]`
 
->I used K-best and found these feature scores:
+>I used K-best and found these feature scores, rated from greatest to least:
 >`[('loan_advances', 549702499.04251242),
 > ('total_payments', 291743055.52305174),
 > ('total_stock_value', 276569697.03888297),
