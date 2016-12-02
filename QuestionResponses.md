@@ -132,3 +132,9 @@
 
 6. Give at least 2 evaluation metrics and your average performance for each of them.  Explain an interpretation of your metrics that says something human-understandable about your algorithm’s performance. [relevant rubric item: “usage of evaluation metrics”]
 
+###Final Reflection 
+This wasn't required (and so you might be understandably loathe to read it) but I wanted to document my thoughts for my own sake.  I was more familiar with ML than many of the other topics presented in this nanodegree (except the statistics portion) because I had taken Andrew Ng's Coursera course on it.  That lulled me into a false sense of security as I watched the videos and completed the quizzes.  This project woke me up the complexities of ML in practice, and I know this is just a teensy baby view into it.  There's just so much out there!  
+
+In addition to getting a peek at all of the possibilities, doing this project taught me to read the discussions on the forums early on.  I actively decided not to look at them until I ran into a problem I was really struggling with.  I figured what I came up with would be more original and more authentically mine.  While those things might be true, I wasted hours going down wrong paths and searching for answers on StackOverflow, trying to understand sklearn documentation, etc. when there was already so much good advice, suited for people of my experience, posted on the forums.  For the last couple of projects I am definitely turning there after spending no more than a couple of hours working on the project before I start running into major issues.
+
+

@@ -2,15 +2,16 @@
 
 - Enron Visualization https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard
 
-- Feature Selection for Classification. M. Dash, H. Liu. http://cse.iitrpr.ac.in/ckn/courses/f2014/featureselection.pdf
+- Feature Selection for Classification. M. Dash, H. Liu:  http://cse.iitrpr.ac.in/ckn/courses/f2014/featureselection.pdf
 
-- Feature Selection For Machine Learning in Python http://machinelearningmastery.com/feature-selection-machine-learning-python/
+- Feature Selection For Machine Learning in Python: http://machinelearningmastery.com/feature-selection-machine-learning-python/
 
-- Super helpful Forum discussion (people's questions, but mostly Myle's answers):
-https://discussions.udacity.com/t/getting-started-with-final-project/170846/22
+- Super helpful Forum discussion (people's questions, but mostly Myle's answers): https://discussions.udacity.com/t/getting-started-with-final-project/170846/22
 
-- Enron Visualizer
-https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard
+- Enron Visualizer : https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard
 
-- Stack Exchange, how to sort a dictionary
-http://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value
+- Stack Exchange, how to sort a dictionary: http://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value
+
+- Stack Exchange, how a pipeline works: http://stackoverflow.com/questions/33091376/python-what-is-exactly-sklearn-pipeline-pipeline
+
+- Grid Searching in All the Right Places: http://abshinn.github.io/python/sklearn/2014/06/08/grid-searching-in-all-the-right-places/
