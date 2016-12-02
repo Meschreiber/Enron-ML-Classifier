@@ -15,3 +15,5 @@
 - Stack Exchange, how a pipeline works: http://stackoverflow.com/questions/33091376/python-what-is-exactly-sklearn-pipeline-pipeline
 
 - Grid Searching in All the Right Places: http://abshinn.github.io/python/sklearn/2014/06/08/grid-searching-in-all-the-right-places/
+
+- GitHub Repository of martin-martin's final project: https://github.com/martin-martin/smartest_algorithm
