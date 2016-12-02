@@ -71,7 +71,7 @@
 
 >Within Kbest, I examined chi-squared and mutual-information scores. I selected these two because in the [feature selection documentation] (http://scikit-learn.org/stable/modules/feature_selection.html) it notes three scores that are good for classification, rather than regression, and three scores that are good for sparse datasets.  Chi-squared and mutual-information met both criteria.  I initially looked at ordered importances and scores when using my entire dataset, before realizing that feature selection should only be done on training data -- otherwise bias may creep into the model. If that was the case, it was time to finally employ a pipeline. 
 
-3. What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?  [relevant rubric item: “pick an algorithm”]
+﻿3. What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?  [relevant rubric item: “pick an algorithm”]
 
 > Before using the pipeline, I tried using the following classifiers "out of the box": naive Bayes, SVM, decision trees, k-nearest neigbors, SGD, random forests, and adaboost.  Originally, I tested them with only 10% of the dataset as test data and with accuracy as the evaluation metric. (More on that later.)  This did not allow me to meaningfully differentiate between them, as their accuracy was either one of three values: 12/15, 13/15, or 14/15. So, I upped the train/test ratio to 30%, then eventually 40% and changed my evaluation metrics to precision, recall, and f1 score. The f1 scores as well as the training/prediction/total time are found in the table below.  While the differences in training time here are trivial, one can imagine with a larger dataset they would not be.  And while the time may not be in a linear correlation with the size of the dataset for each of these methods, it is a useful evaluation metric to keep in mind for future projects.
 
@@ -83,17 +83,17 @@
 | Adaboost          |.85|.294|.006|.300|
 | Support vector machine|.82|.002|.001|.003|
 | Decision tree               |.81|.009|0|.009|
-| Stochastic gradient descent |.68|.001|.001|.002|
+| Stochastic gradient descent |.81|.002|0|.002|
 
-The clear winner is K nearest neighbors (with testing set as 30% of the dataset, it's f1 was actually 0.95).  It has the second best time (tied with SGD), but that is not a useful evaluation method here.
+The clear winner is K nearest neighbors (with testing set as 30% of the dataset, it's f1 was actually 0.95).  It has the second best time (tied with SGD), but that is not a useful evaluation method here.  I had learned about SGD in another course and was excited that I remembered the best loss function in this case was a logistic regression probabilistic classifier rather than the default hinge.  It didn't do too well though.  Part of me wishes that the algorithm could be part of a pipeline/grid search to find the best one, as I suspect in some cases they evaluate quite similarly.  I also eventually hope to develop a feel for which kinds of algorithms work best with which kinds of datasets.
 
-4. What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm? (Some algorithms do not have parameters that you need to tune -- if this is the case for the one you picked, identify and briefly explain how you would have done it for the model that was not your final choice or a different model that does utilize parameter tuning, e.g. a decision tree classifier).  [relevant rubric item: “tune the algorithm”]
-
-
-5. What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?  [relevant rubric item: “validation strategy”]
+﻿4. What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm? (Some algorithms do not have parameters that you need to tune -- if this is the case for the one you picked, identify and briefly explain how you would have done it for the model that was not your final choice or a different model that does utilize parameter tuning, e.g. a decision tree classifier).  [relevant rubric item: “tune the algorithm”]
 
 
-6. Give at least 2 evaluation metrics and your average performance for each of them.  Explain an interpretation of your metrics that says something human-understandable about your algorithm’s performance. [relevant rubric item: “usage of evaluation metrics”]
+﻿5. What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?  [relevant rubric item: “validation strategy”]
+
+
+﻿6. Give at least 2 evaluation metrics and your average performance for each of them.  Explain an interpretation of your metrics that says something human-understandable about your algorithm’s performance. [relevant rubric item: “usage of evaluation metrics”]
 
 ###Final Reflection 
 This wasn't required (and so you might be understandably loathe to read it) but I wanted to document my thoughts for my own sake.  I was more familiar with ML than many of the other topics presented in this nanodegree (except the statistics portion) because I had taken Andrew Ng's Coursera course on it.  That lulled me into a false sense of security as I watched the videos and completed the quizzes.  This project woke me up the complexities of ML in practice, and I know this is just a teensy baby view into it.  There's just so much out there!  
