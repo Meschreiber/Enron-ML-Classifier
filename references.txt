@@ -1,33 +1,45 @@
-“I hereby confirm that this submission is my work. I have cited above the origins of any parts of the submission that were taken from Websites, books, forums, blog posts, github repositories, etc."  Citations can be found below:
+â€œI hereby confirm that this submission is my work. I have cited above the origins of any parts of the submission that were taken from Websites, books, forums, blog posts, github repositories, etc."  Citations follow:
 
-- Enron Visualization https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard
+- Adaboost Youtube Explanation: "https://www.youtube.com/watch?v=ix6IvwbVpw0"
 
-- Feature Selection for Classification. M. Dash, H. Liu:  http://cse.iitrpr.ac.in/ckn/courses/f2014/featureselection.pdf
+- Adaboost Wikipedia: "https://en.wikipedia.org/wiki/AdaBoost" 
+
+- Cross Validated, Should feature selection be performed on all data?: http://stats.stackexchange.com/questions/64825/should-feature-selection-be-performed-only-on-training-data-or-all-data 
+
+- Cross Validated, When should I apply feature scaling for my data: http://stats.stackexchange.com/questions/121886/when-should-i-apply-feature-scaling-for-my-data
+
+- Cross Validated, Understanding stratified cross validation: http://stats.stackexchange.com/questions/49540/understanding-stratified-cross-validation
+
+- Enron Visualizer : https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard
 
 - Feature Selection For Machine Learning in Python: http://machinelearningmastery.com/feature-selection-machine-learning-python/
 
-- Super helpful Forum discussion (people's questions, but mostly Myle's answers): https://discussions.udacity.com/t/getting-started-with-final-project/170846/22
+- GitHub Repository of martin-martin's final project: https://github.com/martin-martin/smartest_algorithm
 
-- Enron Visualizer : https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard
+- Grid Searching in All the Right Places: http://abshinn.github.io/python/sklearn/2014/06/08/grid-searching-in-all-the-right-places/
+
+- K-Nearest Neighbors for Machine Learning: http://machinelearningmastery.com/k-nearest-neighbors-for-machine-learning/
+
+- kNN Youtube Explanation: "https://www.youtube.com/watch?v=4ObVzTuFivY
 
 - Stack Overflow, how to sort a dictionary: http://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value
 
 - Stack Overflow, how a pipeline works: http://stackoverflow.com/questions/33091376/python-what-is-exactly-sklearn-pipeline-pipeline
 
-- Grid Searching in All the Right Places: http://abshinn.github.io/python/sklearn/2014/06/08/grid-searching-in-all-the-right-places/
+- The importance of preprocessing in data science and the machine learning pipeline I: centering, scaling and k-Nearest Neighbours: https://www.datacamp.com/community/tutorials/the-importance-of-preprocessing-in-data-science-and-the-machine-learning-pipeline-i-centering-scaling-and-k-nearest-neighbours#gs.BhYHnPE
 
-- GitHub Repository of martin-martin's final project: https://github.com/martin-martin/smartest_algorithm
+- Udacity Forum Discussion, "Getting started with the final project": https://discussions.udacity.com/t/getting-started-with-final-project/170846/22
 
-- Cross Validated, should feature selection be performed on all data?: http://stats.stackexchange.com/questions/64825/should-feature-selection-be-performed-only-on-training-data-or-all-data 
+- Udacity Forum Discussion, "GridSearchCV and Testing/Training Data": https://discussions.udacity.com/t/gridsearchcv-and-testingtraining-data/36107/19
 
-- Workflows in Python: Using Pipeline and GridSearchCV for More Compact and Comprehensive Code: https://civisanalytics.com/blog/data-science/2016/01/06/workflows-python-using-pipeline-gridsearchcv-for-compact-code/
+- Udacity Forum Discussion, "How to find out the features selected by selectkbest" https://discussions.udacity.com/t/how-to-find-out-the-features-selected-by-selectkbest/45118/12
+
+- Udacity Forum Discussion, "How to use pipeline for feature scaling": https://discussions.udacity.com/t/how-to-use-pipeline-for-feature-scalling/164178/10
+
+- Udacity Forum Discussion, "Worse Performance with GridSearchCV?" https://discussions.udacity.com/t/worse-performance-with-gridsearchcv/201398/11
 
 - Wikipedia on K Nearest Neighbors: https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
 
-- Forum Discussion, "How to use pipeline for feature scaling": https://discussions.udacity.com/t/how-to-use-pipeline-for-feature-scalling/164178/10
+- Workflows in Python: Using Pipeline and GridSearchCV for More Compact and Comprehensive Code: https://civisanalytics.com/blog/data-science/2016/01/06/workflows-python-using-pipeline-gridsearchcv-for-compact-code/
 
-- K-Nearest Neighbors for Machine Learning: http://machinelearningmastery.com/k-nearest-neighbors-for-machine-learning/
 
-- The importance of preprocessing in data science and the machine learning pipeline I: centering, scaling and k-Nearest Neighbours: https://www.datacamp.com/community/tutorials/the-importance-of-preprocessing-in-data-science-and-the-machine-learning-pipeline-i-centering-scaling-and-k-nearest-neighbours#gs.BhYHnPE
-
--  Forum Discussion, "GridSearchCV and TestingTraining Data": https://discussions.udacity.com/t/gridsearchcv-and-testingtraining-data/36107/10
