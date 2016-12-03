@@ -113,3 +113,4 @@ In addition to getting a peek at all of the possibilities, doing this project ta
 ###Remaining Questions
 - I've seen PCA applied before and after feature selection. What is the rationale for doing it one way vs. the other?
 - I still don't fully understand the difference between stratified and non-stratified cross validation, despite reading a few stubs on it and searching for images, which helped me to understand different kinds of cross validation.  I've read that stratified cross validation creates subset which are stratified and thus reduce variance and that "Stratification is the process of rearranging the data as to ensure each fold is a good representative of the whole." but I still can't really figure out how that is done or picture it.
+- I (and I think the vast majority of students) did not use text learning on the e-mail corpus.  I'm not sure and am curious how I could integrate this into the work done here.  
