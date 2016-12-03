@@ -180,6 +180,16 @@ run_clf(svm_clf, features_train, features_test, labels_train, labels_test)
 print "Decision Tree"
 split = tree.DecisionTreeClassifier(min_samples_split = 10)
 run_clf(split, features_train, features_test, labels_train, labels_test)
+<<<<<<< HEAD
+
+neigh_clf = KNeighborsClassifier(n_neighbors = 3)
+print "K Nearest Neighbors"
+run_clf(neigh_clf, features_train, features_test, labels_train, labels_test)
+
+print "K Nearest Neighbors w Scaling"
+run_clf(neigh_clf, preprocessing.MinMaxScaler().fit_transform(features_train),
+    preprocessing.MinMaxScaler().fit_transform(features_test), labels_train, labels_test)
+=======
 
 neigh_clf = KNeighborsClassifier(n_neighbors = 3)
 print "K Nearest Neighbors"
@@ -222,6 +232,42 @@ kNN_pipeline.fit(features_train, labels_train)
 labels_prediction = kNN_pipeline.predict(features_test)
 report = classification_report(labels_test, labels_prediction)
 print(report)
+>>>>>>> 63e50a3562d4c991bb1f9b5beb79c6d59ada0411
+
+print "Stochastic Gradient Descent "
+sgd_clf = SGDClassifier(loss="log")
+run_clf(sgd_clf,(features_train), (features_test), labels_train, labels_test)
+
+<<<<<<< HEAD
+print "Stochastic Gradient Descent w scaling"
+run_clf(sgd_clf, preprocessing.MinMaxScaler().fit_transform(features_train),
+    preprocessing.MinMaxScaler().fit_transform(features_test), labels_train, labels_test)
+
+print "Random Forest"
+rando = RandomForestClassifier(n_estimators=10)
+run_clf(rando, features_train, features_test, labels_train, labels_test)
+
+print "Adaboost"
+ada_clf = AdaBoostClassifier(n_estimators=100)
+run_clf(ada_clf, features_train, features_test, labels_train, labels_test)
+
+### Based on out of the box performance, decided to put kNN and adaboost into pipelines
+
+print "kNN pipeline"
+scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
+select = SelectKBest(score_func = chi2, k = 10)
+pca = PCA(n_components = 5)
+kneighs = KNeighborsClassifier(n_neighbors = 3, n_jobs = -1)
+knn_steps = [('scaling', scaler),
+        ('feature_selection', select),
+        ('reduce_dim', pca),
+        ('k_neighbors', kneighs)]
+
+kNN_pipeline = sklearn.pipeline.Pipeline(knn_steps)
+kNN_pipeline.fit(features_train, labels_train)
+labels_prediction = kNN_pipeline.predict(features_test)
+report = classification_report(labels_test, labels_prediction)
+print(report)
 
 
 print "adaboost pipeline"
@@ -230,6 +276,14 @@ ada_steps = [('feature_selection', select),
          ('reduce_dim', pca),
         ('adaboost', ada)]
 
+=======
+print "adaboost pipeline"
+ada = AdaBoostClassifier(n_estimators=100)
+ada_steps = [('feature_selection', select),
+         ('reduce_dim', pca),
+        ('adaboost', ada)]
+
+>>>>>>> 63e50a3562d4c991bb1f9b5beb79c6d59ada0411
 ada_pipeline = sklearn.pipeline.Pipeline(ada_steps)
 ada_pipeline.fit(features_train, labels_train)
 labels_prediction = ada_pipeline.predict(features_test)
@@ -251,8 +305,6 @@ knn_parameters = dict(feature_selection__k = [5, 10, 15, 20],
                   k_neighbors__n_jobs = [-1],
                   k_neighbors__algorithm = ['auto', 'ball_tree', 'kd_tree']
                )
-
-
 cv = StratifiedShuffleSplit(labels, 100, random_state = 42)
 
 
@@ -269,6 +321,7 @@ print(report)
 print kNN_clf
 print 
 print
+
 '''
 print "adaboost parameter search"
 ada_parameters = dict(feature_selection__k = [5, 10, 15, 20],
@@ -310,3 +363,4 @@ print 'Feature Scores', features_scores_selected
 
 dump_classifier_and_data(clf, my_dataset, features_list)
 test_classifier(clf, my_dataset, features_list, folds = 1000)
+
