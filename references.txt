@@ -28,6 +28,8 @@
 
 - The importance of preprocessing in data science and the machine learning pipeline I: centering, scaling and k-Nearest Neighbours: https://www.datacamp.com/community/tutorials/the-importance-of-preprocessing-in-data-science-and-the-machine-learning-pipeline-i-centering-scaling-and-k-nearest-neighbours#gs.BhYHnPE
 
+- Udacity Forum Discussion, "Different scores results between testers and my result": https://discussions.udacity.com/t/different-scores-result-between-testers-and-my-result/31454/9
+
 - Udacity Forum Discussion, "Getting started with the final project": https://discussions.udacity.com/t/getting-started-with-final-project/170846/22
 
 - Udacity Forum Discussion, "GridSearchCV and Testing/Training Data": https://discussions.udacity.com/t/gridsearchcv-and-testingtraining-data/36107/19
