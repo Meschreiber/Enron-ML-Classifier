@@ -1,5 +1,5 @@
 
-“I hereby confirm that this submission is my work. I have cited above the origins of any parts of the submission that were taken from Websites, books, forums, blog posts, github repositories, etc."  Citations follow:
+â€œI hereby confirm that this submission is my work. I have cited above the origins of any parts of the submission that were taken from Websites, books, forums, blog posts, github repositories, etc."  Citations follow:
 
 - Adaboost Youtube Explanation: "https://www.youtube.com/watch?v=ix6IvwbVpw0"
 
@@ -34,7 +34,6 @@
 - Udacity Forum Discussion, "Getting started with the final project": https://discussions.udacity.com/t/getting-started-with-final-project/170846/22
 
 - Udacity Forum Discussion, "GridSearchCV and Testing/Training Data": https://discussions.udacity.com/t/gridsearchcv-and-testingtraining-data/36107/19
->>>>>>> 2b67a410c5f60c6b5968806e8da280b64a621504
 
 - Udacity Forum Discussion, "How to find out the features selected by selectkbest": https://discussions.udacity.com/t/how-to-find-out-the-features-selected-by-selectkbest/45118/12
 
