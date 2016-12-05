@@ -37,5 +37,7 @@
 
 - Udacity Forum Discussion, "How to find out the features selected by selectkbest": https://discussions.udacity.com/t/how-to-find-out-the-features-selected-by-selectkbest/45118/12
 
+-Visual Diagnostics for More Informed Machine Learning: Part 3: http://blog.districtdatalabs.com/visual-diagnostics-for-more-informed-machine-learning-part-3
+
 - Workflows in Python: Using Pipeline and GridSearchCV for More Compact and Comprehensive Code: https://civisanalytics.com/blog/data-science/2016/01/06/workflows-python-using-pipeline-gridsearchcv-for-compact-code/
 
