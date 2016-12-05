@@ -236,11 +236,11 @@ new_feature(features_list, 'stock_pay', my_dataset)
 print "Adding excercised stock/tootal stock ratio"
 new_feature(features_list, 'excer_stock', my_dataset)
 
-feature_list.append('sal_total')
-feature_list.append('bon_total')
-feature_list.append('sal_bon')
-feature_list.append('stock_pay')
-feature_list.append('excer_stock')
+features_list.append('sal_total')
+features_list.append('bon_total')
+features_list.append('sal_bon')
+features_list.append('stock_pay')
+features_list.append('excer_stock')
 
 
 print "Naive Bayes Classifier:"
