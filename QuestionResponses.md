@@ -66,7 +66,17 @@
 > - *Ratio of salary:bonus*: Perhaps POIS had an unusually small salary: bonus ratio, as in they had inordinately large bonuses as composed to their salary.
 > - *Ratio of total stock value:total payments*: Perhaps POIs had an usually large stock:regular payments ratio, as stock options, like bonuses are not as highly monitored as salaries.
 
->I decided not to pursue combined e-mail features since this was already explored in lessons for this unit and there was shown to be an intrinisic flow in how these features worked when combined with one another.  Additionally, by using the <a href = "https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard">very awesome Enron Visualizer</a> I decided to create *percent excercised stock/total stock value* because POI datapoints seemed clustered together closer in this scatterplot in this scatterplot than in any of these ones.
+>I decided not to pursue combined e-mail features since this was already explored in lessons for this unit and there was shown to be an intrinisic flow in how these features worked when combined with one another.  Additionally, by using the <a href = "https://public.tableau.com/profile/diego2420#!/vizhome/Udacity/UdacityDashboard">very awesome Enron Visualizer</a> I decided to create *percent excercised stock/total stock value* because POI datapoints seemed clustered together closer in this scatterplot in this scatterplot than in any of these ones. Below are the results of the average f1 score of adding these features.  A kNN classifier is used and scores are compared to the kNN scores of the dataset without adding these features:
+
+>|Feature added         |  f1 score change | 
+|:-----------------------|:--------------:|
+| salary/total payments ratio   |  -.04|
+| bonus/total payments ratio          |0|
+| salary/bonus payments               |0|
+| total stock/total payments ratios      |0|
+| excerised/total stock ratio        |-.02|
+
+>As can be seen, the addition of these features does not significantly change the f1 scores. For that reason, I keep them and allow feature selection techniques to weed out the good from the bad.
 
 >My first attempt at feature selection was the first type listed on the <a href = "http://scikit-learn.org/stable/modules/feature_selection.html">Feature Selection documentation </a>.  This type of selection removes features with particularly low variance.  At first pass, (with threshold = .8 * (1 - .8)), the only "feature" that was removed was `poi`. This was in fact a label, but was included originally in the features_list. This indicates that all instances of this feature are either one or zero (on or off) in more than 80% of the samples.  This was no new information since we know that only 12.5% (18/144) of the dataset are POIs.  Upping the variance to a higher threshold, the features to be removed were `['from_messages', 'from_poi_to_this_person', 'from_this_person_to_poi', 'poi', 'shared_receipt_with_poi', 'to_messages']`.  This makes sense since all of these are e-mail datapoints and have lower numbers than the financial datapoints, thus the variance will also be smaller.  In order to use this low variance selecter, I decided it was necessary to scale the features using the min_max_scaler.  After this, the VarianceThreshold selector removed `['loan_advances', 'restricted_stock_deferred', 'total_payments']`.  I decided to keep this in mind, but turn my attention to other feature selectors, namely decision-tree based feature selection and SelectKBest. 
 
