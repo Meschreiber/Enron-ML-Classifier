@@ -133,11 +133,6 @@ data_dict = create_ratio(data_dict, 'sal_bon', 'salary', 'bonus')
 data_dict = create_ratio(data_dict, 'stock_pay', 'total_stock_value', 'total_payments')
 data_dict = create_ratio(data_dict, 'excer_stock', 'exercised_stock_options', 'total_stock_value')
 
-features_list.append('sal_total')
-features_list.append('bon_total')
-features_list.append('sal_bon')
-features_list.append('stock_pay')
-features_list.append('excer_stock')
 
 ### Store to my_dataset for easy export below.
 my_dataset = data_dict
@@ -150,12 +145,50 @@ from sklearn.cross_validation import train_test_split
 features_train, features_test, labels_train, labels_test = \
     train_test_split(features, labels, test_size=0.3, random_state=42)
 
-
 ### Task 4: Try a varity of classifiers
 ### Please name your classifier clf for easy export below.
 ### Note that if you want to do PCA or other multi-stage operations,
 ### you'll need to use Pipelines. For more info:
 ### http://scikit-learn.org/stable/modules/pipeline.html
+
+import matplotlib.pyplot as plt
+from matplotlib import colors
+from matplotlib.colors import ListedColormap
+
+ddl_heat = ['#DBDBDB','#DCD5CC','#DCCEBE','#DDC8AF','#DEC2A0','#DEBB91',\
+            '#DFB583','#DFAE74','#E0A865','#E1A256','#E19B48','#E29539']
+ddlheatmap = colors.ListedColormap(ddl_heat)
+
+def plot_classification_report(cr, title=None, cmap=ddlheatmap):
+    title = title or 'Classification report'
+    lines = cr.split('\n')
+    classes = []
+    matrix = []
+
+    for line in lines[2:(len(lines)-3)]:
+        s = line.split()
+        classes.append(s[0])
+        value = [float(x) for x in s[1: len(s) - 1]]
+        matrix.append(value)
+
+    fig, ax = plt.subplots(1)
+
+    for column in range(len(matrix)+1):
+        for row in range(len(classes)):
+            txt = matrix[row][column]
+            ax.text(column,row,matrix[row][column],va='center',ha='center')
+
+    fig = plt.imshow(matrix, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    x_tick_marks = np.arange(len(classes)+1)
+    y_tick_marks = np.arange(len(classes))
+    plt.xticks(x_tick_marks, ['precision', 'recall', 'f1-score'], rotation=45)
+    plt.yticks(y_tick_marks, classes)
+    plt.ylabel('Classes')
+    plt.xlabel('Measures')
+    plt.show()
+
 
 def run_clf(clf, features_train, features_test, labels_train, labels_test):
     ''' takes a classifier and training and test data
@@ -168,32 +201,67 @@ def run_clf(clf, features_train, features_test, labels_train, labels_test):
     print "prediction time:", round(time()-t0, 3), "s"
     report = classification_report(labels_test, labels_prediction)
     print report
+    plot_classification_report(report)
+
+### Try the effect of adding features on precision/recall/ f1scores
+
+def new_feature(feature_list, feature_name, dataset):
+  feature_list.append(feature_name)
+  data = featureFormat(my_dataset, features_list, sort_keys = True)
+  labels, features = targetFeatureSplit(data)
+  from sklearn.cross_validation import train_test_split
+  features_train, features_test, labels_train, labels_test = \
+  train_test_split(features, labels, test_size=0.3, random_state=42)
+  run_clf(neigh_clf, preprocessing.MinMaxScaler().fit_transform(features_train),
+    preprocessing.MinMaxScaler().fit_transform(features_test), labels_train, labels_test)
+  feature_list.remove(feature_name)
+
+print "Original features only"
+neigh_clf = KNeighborsClassifier(n_neighbors = 3)
+run_clf(neigh_clf, preprocessing.MinMaxScaler().fit_transform(features_train),
+    preprocessing.MinMaxScaler().fit_transform(features_test), labels_train, labels_test)
+
+print "Adding salary/total payments ratio"
+new_feature(features_list, 'sal_total', my_dataset)
+
+print "Adding bonus/total payments ratio"
+new_feature(features_list, 'bon_total', my_dataset)
+
+print "Adding salary/total payments ratio"
+new_feature(features_list, 'sal_bon', my_dataset)
+
+print "Adding total stock/total payments ratio"
+new_feature(features_list, 'stock_pay', my_dataset)
+
+print "Adding excercised stock/tootal stock ratio"
+new_feature(features_list, 'excer_stock', my_dataset)
+
+feature_list.append('sal_total')
+feature_list.append('bon_total')
+feature_list.append('sal_bon')
+feature_list.append('stock_pay')
+feature_list.append('excer_stock')
+
 
 print "Naive Bayes Classifier:"
 nb_clf = GaussianNB()
 run_clf(nb_clf, features_train, features_test, labels_train, labels_test)
 
-print "Support Vector Classifier"
+print "Support Vector Classifier (w scaling)"
 svm_clf = SVC(kernel="rbf", C = 10000)
-run_clf(svm_clf, features_train, features_test, labels_train, labels_test)
+run_clf(svm_clf, preprocessing.MinMaxScaler().fit_transform(features_train),
+    preprocessing.MinMaxScaler().fit_transform(features_test), labels_train, labels_test)
 
 print "Decision Tree"
 split = tree.DecisionTreeClassifier(min_samples_split = 10)
 run_clf(split, features_train, features_test, labels_train, labels_test)
 
-neigh_clf = KNeighborsClassifier(n_neighbors = 3)
-print "K Nearest Neighbors"
-run_clf(neigh_clf, features_train, features_test, labels_train, labels_test)
-
-print "K Nearest Neighbors w Scaling"
+print "K Nearest Neighbors (w Scaling)"
 run_clf(neigh_clf, preprocessing.MinMaxScaler().fit_transform(features_train),
     preprocessing.MinMaxScaler().fit_transform(features_test), labels_train, labels_test)
 
-print "Stochastic Gradient Descent "
+print "Stochastic Gradient Descent (w scaling)"
 sgd_clf = SGDClassifier(loss="log")
-run_clf(sgd_clf,(features_train), (features_test), labels_train, labels_test)
-
-print "Stochastic Gradient Descent w scaling"
 run_clf(sgd_clf, preprocessing.MinMaxScaler().fit_transform(features_train),
     preprocessing.MinMaxScaler().fit_transform(features_test), labels_train, labels_test)
 
@@ -242,6 +310,8 @@ print(report)
 ### stratified shuffle split cross validation. For more info: 
 ### http://scikit-learn.org/stable/modules/generated/sklearn.cross_validation.StratifiedShuffleSplit.html
 
+
+
 print "kNN parameter search"
 knn_parameters = dict(feature_selection__k = [5, 10, 15, 20],
                   feature_selection__score_func = [chi2, mutual_info_classif],
@@ -253,7 +323,7 @@ knn_parameters = dict(feature_selection__k = [5, 10, 15, 20],
 cv = StratifiedShuffleSplit(labels, 100, random_state = 42)
 
 
-kNN_gs = GridSearchCV(kNN_pipeline, param_grid = knn_parameters, scoring = 'f1_weighted')
+kNN_gs = GridSearchCV(kNN_pipeline, param_grid = knn_parameters, scoring = 'f1')
 t0 = time()
 kNN_gs.fit(features, labels)
 print "training time:", round(time()-t0, 3), "s"
@@ -267,14 +337,13 @@ print kNN_clf
 print 
 print
 
-'''
 print "adaboost parameter search"
 ada_parameters = dict(feature_selection__k = [5, 10, 15, 20],
                   feature_selection__score_func = [chi2, mutual_info_classif],
                   reduce_dim__n_components = [1, 2, 3, 4],
                   adaboost__n_estimators = [50, 75, 100, 200], )
 
-ada_gs = GridSearchCV(ada_pipeline, param_grid = ada_parameters, scoring = 'f1_weighted')
+ada_gs = GridSearchCV(ada_pipeline, param_grid = ada_parameters, scoring = 'f1')
 t0 = time()
 ada_gs.fit(features, labels)
 print "training time:", round(time()-t0, 3), "s"
@@ -285,8 +354,8 @@ ada_clf = ada_gs.best_estimator_
 report = classification_report(labels, labels_predictions)
 print(report)
 print ada_clf
-clf = ada_clf
-'''
+#clf = ada_clf
+
 
 clf = kNN_clf
 
@@ -295,6 +364,7 @@ SKB_k.fit_transform(features, labels)
 feature_scores = SKB_k.scores_
 features_selected = [features_list[1:][i]for i in SKB_k.get_support(indices=True)]
 features_scores_selected=[feature_scores[i]for i in SKB_k.get_support(indices=True)]
+
 print
 print 
 print 'Selected Features', features_selected
